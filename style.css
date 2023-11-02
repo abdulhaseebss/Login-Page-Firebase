@@ -121,3 +121,14 @@ button {
 .hello{
   text-align: center;
 }
+#logOut{
+  margin-top: 800px;
+  width: 400px;
+}
+#logOut:hover{
+  background: rgb(255, 202, 202);
+}
+.div-logOut{
+  display: flex;
+  justify-content: center;
+}

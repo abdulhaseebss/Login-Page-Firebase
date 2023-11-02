@@ -6,6 +6,7 @@ const form = document.querySelector('#form')
 const email = document.querySelector('#username')
 const password = document.querySelector('#password')
 const signUp = document.querySelector('#signUp')
+const googleBtn = document.querySelector('#googleBtn')
 
 
 form.addEventListener('submit', (e) => {
@@ -27,10 +28,14 @@ form.addEventListener('submit', (e) => {
                 icon: 'error',
                 title: 'Oops...',
                 title: 'Something went wrong!',
-              })
+            })
         });
 })
 
-signUp.addEventListener('click' , ()=>{
+signUp.addEventListener('click', () => {
     window.location = 'index.html'
+})
+
+googleBtn.addEventListener('click', () => {
+    console.log("hello World");
 })

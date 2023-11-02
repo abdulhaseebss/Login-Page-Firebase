@@ -26,19 +26,22 @@
       <h3>Sign Up</h3>
 
       <label for="username">Username</label>
-      <input type="email" placeholder="Email or Phone" id="username" />
+      <input type="email" placeholder="Email or Phone" id="username" required/>
 
       <label for="password">Password</label>
-      <input type="password" placeholder="Password" id="password" />
+      <input type="password" placeholder="Password" id="password" required/>
 
       <button type="submit">Sign Up</button>
       <div class="social">
-        <button class="go social-btn" id="login">Login</button>
-        <button class="fb social-btn google"><i class="fab fa-google"></i>Google</button>
+        <button class="go social-btn" id="login"><i class="fa-solid fa-right-to-bracket"></i>Login</button>
+        <button class="fb social-btn google"><i class="fab fa-google " id="googleBtn"></i>Google</button>
       </div>
     </form>
 
 
+
+
+    <script src="https://kit.fontawesome.com/48cc78a26d.js" crossorigin="anonymous"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
     <script type="module" src="app.js"></script>
