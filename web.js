@@ -1,6 +1,6 @@
 import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.10.0/firebase-auth.js";
 import { auth, db } from "./config.js";
-import { collection, addDoc, getDocs } from "https://www.gstatic.com/firebasejs/9.10.0/firebase-firestore.js";
+import { collection, addDoc, getDocs, Timestamp, query, orderBy } from "https://www.gstatic.com/firebasejs/9.10.0/firebase-firestore.js";
 
 
 const form = document.querySelector('#form')
@@ -26,6 +26,7 @@ onAuthStateChanged(auth, (user) => {
 
 form.addEventListener('submit', async (e) => {
     e.preventDefault()
+    div.innerHTML = ''
     // console.log(title.value);
     // console.log(description.value);
 
@@ -36,6 +37,7 @@ form.addEventListener('submit', async (e) => {
         const docRef = await addDoc(collection(db, "posts"), {
             title: title.value,
             description: description.value,
+            postDate: Timestamp.fromDate(new Date()),
             uid: auth.currentUser.uid
         });
         console.log("Document written with ID: ", docRef.id);
@@ -47,9 +49,11 @@ form.addEventListener('submit', async (e) => {
 })
 const arr = []
 async function getDataFromFirestore() {
-    const querySnapshot = await getDocs(collection(db, "posts"));
+    arr.length = 0;
+    const q = query(collection(db, "posts"), orderBy('postDate', 'desc'));
+    const querySnapshot = await getDocs(q);
     querySnapshot.forEach((doc) => {
-        arr.push(doc.data());
+        arr.push({ ...doc.data(), docId: doc.id });
     });
     console.log(arr);
     arr.map((item) => {
@@ -58,9 +62,25 @@ async function getDataFromFirestore() {
         <div>
             <p><span class="h4">Title = </span>${item.title}</p>
             <p><span class="h4">Description = </span>${item.description}</p>
-        </div><br/><br/>
+            <div class = "btn-div"><button type="button" id="delete" class="del-btn">Delete</button>
+            <button type="button" id="update" class="edit-btn">Edit</button></div>
+        </div><br/><br/><hr/>
     </div>`
     // render(item)
+
+    const del = document.querySelectorAll('#delete');
+    const upd = document.querySelectorAll('#update');
+
+    del.forEach((btn , index) => {
+        btn.addEventListener('click', () => {
+            console.log('delete called' , arr[index]);
+        })
+    })
+    upd.forEach((btn , index) => {
+        btn.addEventListener('click', () => {
+            console.log('update called' , arr[index]);
+        })
+    })
     })
 }
 
